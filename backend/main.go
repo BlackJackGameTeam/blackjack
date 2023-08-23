@@ -6,13 +6,19 @@ import (
 	"backend/repository"
 	"backend/router"
 	"backend/usecase"
+	"backend/validator"
 )
 
 func main() {
 	db := db.NewDB()
+	playerValidator := validator.NewPlayerValidator()
+	historyValidator := validator.NewHistoryValidator()
 	playerRepository := repository.NewPlayerRepository(db)
-	playerUsecase := usecase.NewPlayerUsecase(playerRepository)
+	historyRepository := repository.NewHistoryRepository(db)
+	playerUsecase := usecase.NewPlayerUsecase(playerRepository, playerValidator)
+	historyUsecase := usecase.NewHistoryUsecase(historyRepository, historyValidator)
 	playerController := controller.NewPlayerController(playerUsecase)
-	e := router.NewRouter(playerController)
+	historyController := controller.NewHistoryController(historyUsecase)
+	e := router.NewRouter(playerController, historyController)
 	e.Logger.Fatal(e.Start(":8080"))
 }

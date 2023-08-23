@@ -14,6 +14,7 @@ type IPlayerController interface {
 	SignUp(c echo.Context) error
 	Login(c echo.Context) error
 	Logout(c echo.Context) error
+	CsrfToken(c echo.Context) error
 }
 
 type playerController struct {
@@ -36,11 +37,11 @@ func (pc *playerController) SignUp(c echo.Context) error {
 	return c.JSON(http.StatusCreated, playerRes)
 }
 
-func (pc *playerController) Login (c echo.Context) error {
+func (pc *playerController) Login(c echo.Context) error {
 	player := model.Player{}
 	if err := c.Bind(&player); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
-	} 
+	}
 	tokenString, err := pc.pu.Login(player)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
@@ -51,23 +52,30 @@ func (pc *playerController) Login (c echo.Context) error {
 	cookie.Expires = time.Now().Add(24 * time.Hour)
 	cookie.Path = "/"
 	cookie.Domain = os.Getenv("API_DOMAIN")
-	// cookie.Secure = true
+	cookie.Secure = true
 	cookie.HttpOnly = true
 	cookie.SameSite = http.SameSiteNoneMode
 	c.SetCookie(cookie) // HTTPResponseに含める
 	return c.NoContent(http.StatusOK)
 }
 
-func (pc *playerController) Logout (c echo.Context) error {
+func (pc *playerController) Logout(c echo.Context) error {
 	cookie := new(http.Cookie)
 	cookie.Name = "token"
 	cookie.Value = ""
 	cookie.Expires = time.Now()
 	cookie.Path = "/"
 	cookie.Domain = os.Getenv("API_DOMAIN")
-	// cookie.Secure = true
+	cookie.Secure = true
 	cookie.HttpOnly = true
 	cookie.SameSite = http.SameSiteNoneMode
 	c.SetCookie(cookie)
-	return c.NoContent(http.StatusOK)	
+	return c.NoContent(http.StatusOK)
+}
+
+func (pc *playerController) CsrfToken(c echo.Context) error {
+	token := c.Get("csrf").(string)
+	return c.JSON(http.StatusOK, echo.Map{
+		"csrf_token": token,
+	})
 }

@@ -3,6 +3,7 @@ package usecase
 import (
 	"backend/model"
 	"backend/repository"
+	"backend/validator"
 	"os"
 	"time"
 
@@ -17,13 +18,17 @@ type IPlayerUsecase interface {
 
 type playerUsecase struct {
 	pr repository.IPlayerRepository
+	pv validator.IPlayerValidation
 }
 
-func NewPlayerUsecase(pr repository.IPlayerRepository) IPlayerUsecase {
-	return &playerUsecase{pr}
+func NewPlayerUsecase(pr repository.IPlayerRepository, pv validator.IPlayerValidation) IPlayerUsecase {
+	return &playerUsecase{pr, pv}
 }
 
 func (pu *playerUsecase) SignUp(player model.Player) (model.PlayerResponse, error) {
+	if err := pu.pv.PlayerValidate(player); err != nil {
+		return model.PlayerResponse{}, err
+	}
 	hash, err := bcrypt.GenerateFromPassword([]byte(player.Password), 10)
 	if err != nil {
 		return model.PlayerResponse{}, err
@@ -40,22 +45,24 @@ func (pu *playerUsecase) SignUp(player model.Player) (model.PlayerResponse, erro
 }
 
 func (pu *playerUsecase) Login(player model.Player) (string, error) {
-	storedPlayer := model.Player{}
-	if err := pu.pr.GetPlayerByEmail(&storedPlayer, player.Email); err != nil {
+	if err := pu.pv.PlayerValidate(player); err != nil {
 		return "", err
 	}
-	err := bcrypt.CompareHashAndPassword([]byte(storedPlayer.Password), []byte(player.Password))
+	storedUser := model.Player{}
+	if err := pu.pr.GetPlayerByEmail(&storedUser, player.Email); err != nil {
+		return "", err
+	}
+	err := bcrypt.CompareHashAndPassword([]byte(storedUser.Password), []byte(player.Password))
 	if err != nil {
 		return "", err
 	}
-	// jwtトークンの生成
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"player_id": storedPlayer.ID,
+		"player_id": storedUser.ID,
 		"exp":       time.Now().Add(time.Hour * 12).Unix(),
 	})
 	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET")))
 	if err != nil {
 		return "", err
 	}
-	return tokenString, err
+	return tokenString, nil
 }
