@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15.1-alpine
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: blackjack
+      POSTGRES_PASSWORD: blackjack
+      POSTGRES_DB: blackjack
+    restart: always
+    networks:
+      - postgres
+networks:
+  postgres:
