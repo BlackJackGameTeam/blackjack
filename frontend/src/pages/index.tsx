@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const redirectTimer = setTimeout(() => {
       setShouldRedirect(false)
-      router.push('login/start', 'start')
+      router.push('start/start', 'start')
     }, 1000)
 
     return () => {
