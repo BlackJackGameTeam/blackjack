@@ -13,7 +13,7 @@ export default function Home() {
     const redirectTimer = setTimeout(() => {
       setShouldRedirect(false)
       router.push('start/start', 'start')
-    }, 1000)
+    }, 5000)
 
     return () => {
       clearTimeout(redirectTimer) // コンポーネントがアンマウントされる際にタイマーをクリアする
