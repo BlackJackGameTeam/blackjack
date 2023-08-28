@@ -10,10 +10,11 @@ export default function Home() {
   const [shouldRedirect, setShouldRedirect] = useState<boolean>(true)
 
   useEffect(() => {
+    // redirect処理
     const redirectTimer = setTimeout(() => {
       setShouldRedirect(false)
       router.push('start/start', 'start')
-    }, 5000)
+    }, 3000)
 
     return () => {
       clearTimeout(redirectTimer) // コンポーネントがアンマウントされる際にタイマーをクリアする
