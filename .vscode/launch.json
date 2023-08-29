@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Next.js: debug server-side",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "cd frontend && npm run dev",
+            "envFile": "${workspaceFolder}/frontend/.env",
+        },
+        {
             "name": "Backend",
             "type": "go",
             "request": "launch",

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Image from 'next/image'
-import backgroundImage from '../../../public/assets/backgroudPicture.png'
+import backgroundImage from '../../public/assets/backgroudPicture.png'
 
 const login = () => {
   return (
