@@ -4,11 +4,19 @@ import { useAsync } from 'react-use'
 import axios from 'axios'
 import { getCsrfToken } from './api/player'
 import { useRouter } from 'next/router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export default function App({ Component, pageProps }: AppProps) {
   useAsync(async () => {
     axios.defaults.withCredentials = true
     await getCsrfToken()
   })
-  return <Component {...pageProps} />
+  const queryClient = new QueryClient({})
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
 }

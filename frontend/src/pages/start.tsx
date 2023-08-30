@@ -1,7 +1,4 @@
-import Head from 'next/head'
-import React, { useEffect } from 'react'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import React from 'react'
 import Link from 'next/link'
 
 const startPage = () => {
