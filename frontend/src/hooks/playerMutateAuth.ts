@@ -6,6 +6,7 @@ import { Credential } from "@/types";
 
 export const playerMutateAuth = () => {
     const router = useRouter();
+    const isReady = router.isReady;
     const { switchErrorHandling } = playerError()
 
     // ログイン時のmutation
@@ -14,7 +15,7 @@ export const playerMutateAuth = () => {
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, user),
             {
                 onSuccess: () => {
-                    router.push('/main')
+                    console.log("success!!!!!")
                 },
                 onError: (err: any) => {
                     if (err.response.data.message) {
@@ -31,7 +32,7 @@ export const playerMutateAuth = () => {
     // 登録時のmutation
     const registerMutation = useMutation(
         async (user:Credential) => {
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, user),
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/signup`, user),
             {
                 onError: (err:any) => {
                     if (err.response.data.message) {
@@ -46,11 +47,11 @@ export const playerMutateAuth = () => {
     
     // ログアウト時のmutation
     const logoutMutation = useMutation(
-        async (user:Credential) => {
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, user),
+        async () => {
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/logout`),
             {
                 onSuccess: () => {
-                    router.push('/login')
+                    console.log("success of logout!!!")
                 },
                 onError: (err: any) => {
                     if (err.response.data.message) {
