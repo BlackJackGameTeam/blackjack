@@ -7,12 +7,10 @@
     "build": "next build",
     "start": "next start",
     "prepare": "cd ../ && husky install frontend/.husky",
-    
     "lint": "yarn run lint:prettier && yarn run lint:es && yarn run lint:style ",
     "lint:prettier": "prettier --check --loglevel=warn '**/*.{js,ts,scss,md}'",
     "lint:es": "eslint --max-warnings=0 '**/*.{js,ts}'",
     "lint:style": "stylelint '**/*.{css,scss}'",
-    
     "format": "yarn run format:prettier && yarn run format:es && yarn run format:style",
     "format:prettier": "prettier --check --write --loglevel=warn '**/*.{js,ts,scss,md}'",
     "format:es": "eslint --max-warnings=0 --fix '**/*.{js,ts}'",
