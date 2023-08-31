@@ -6,7 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "prepare": "cd ../ && husky install frontend/.husky",
+    
+    "lint": "yarn run lint:prettier && yarn run lint:es && yarn run lint:style ",
+    "lint:prettier": "prettier --check --loglevel=warn '**/*.{js,ts,scss,md}'",
+    "lint:es": "eslint --max-warnings=0 '**/*.{js,ts}'",
+    "lint:style": "stylelint '**/*.{css,scss}'",
+    
+    "format": "yarn run format:prettier && yarn run format:es && yarn run format:style",
+    "format:prettier": "prettier --check --write --loglevel=warn '**/*.{js,ts,scss,md}'",
+    "format:es": "eslint --max-warnings=0 --fix '**/*.{js,ts}'",
+    "format:style": "stylelint --fix '**/*.{css,scss}'"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.16",
@@ -29,6 +39,13 @@
   },
   "devDependencies": {
     "daisyui": "^3.6.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "tailwindcss": "^3.3.3"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "yarn lint:es",
+    "*.{css,scss}": "yarn lint:style",
+    "*.{js,ts,scss,md}": "yarn lint:prettier"
   }
 }
