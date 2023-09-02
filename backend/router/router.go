@@ -14,8 +14,9 @@ func NewRouter(uc controller.IPlayerController, hc controller.IHistoryController
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000", os.Getenv("FE_URL")},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAccessControlAllowHeaders, echo.HeaderXCSRFToken}, // header経由でXCSRFTOKENを取得できる
+		AllowOrigins: []string{"http://localhost:3000", os.Getenv("FE_URL")},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept,
+			echo.HeaderAccessControlAllowHeaders, echo.HeaderXCSRFToken}, // header経由でXCSRFTOKENを取得できる
 		AllowMethods:     []string{"GET", "PUT", "POST"},
 		AllowCredentials: true,
 	}))
@@ -25,7 +26,7 @@ func NewRouter(uc controller.IPlayerController, hc controller.IHistoryController
 		CookieHTTPOnly: true,
 		CookieSameSite: http.SameSiteNoneMode,
 		// CookieSameSite: http.SameSiteDefaultMode,
-		CookieMaxAge:   60,
+		CookieMaxAge: 60,
 	}))
 	e.POST("/signup", uc.SignUp)
 	e.POST("/login", uc.Login)

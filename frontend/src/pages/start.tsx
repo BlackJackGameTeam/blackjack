@@ -1,14 +1,7 @@
-import Head from 'next/head'
 import React from 'react'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const startPage = () => {
-  const router = useRouter()
-  const handlePage = () => {
-    router.push('/login/login')
-  }
-
   return (
     <>
       <div
@@ -27,9 +20,11 @@ const startPage = () => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn btn-primary" onClick={handlePage}>
-              Get Started
-            </button>
+            <Link href={'/login'}>
+              <button className="btn btn-primary" type="button">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </div>
