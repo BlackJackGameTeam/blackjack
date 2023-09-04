@@ -1,2 +1,1 @@
-import Phaser from "phaser";
-
+import Phaser from 'phaser'

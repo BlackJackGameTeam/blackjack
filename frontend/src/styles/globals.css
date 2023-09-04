@@ -6,8 +6,8 @@
 以下を追加
 本当はscssで別のファイルで管理したりするほうがいいかもしれません
 */
-@layer components{
+@layer components {
   .example-button {
-    @apply w-1/6 mx-auto mt-12 
+    @apply w-1/6 mx-auto mt-12;
   }
 }
