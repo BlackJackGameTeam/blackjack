@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import Main from "./PlayScene";
 import { useEffect } from "react";
 
-export default function Index() {
+export default function Preload() {
   useEffect(() => {
     loadGame();
     console.log("load game");
