@@ -1,16 +1,16 @@
-import Phaser from "phaser";
-import Main from "./PlayScene";
-import { useEffect } from "react";
+import Phaser from 'phaser'
+import Main from './PlayScene'
+import { useEffect } from 'react'
 
 export default function Preload() {
   useEffect(() => {
-    loadGame();
-    console.log("load game");
-  }, []);
+    loadGame()
+    console.log('load game')
+  }, [])
 
   const loadGame = async () => {
-    if (typeof window !== "object") {
-      return;
+    if (typeof window !== 'object') {
+      return
     }
 
     var config = {
@@ -19,18 +19,18 @@ export default function Preload() {
       height: 540, // window.innerHeight,
       // width: window.innerWidth * window.devicePixelRatio,
       // height: window.innerHeight * window.devicePixelRatio,
-      backgroundColor: "#eef",
+      backgroundColor: '#eef',
       physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
           gravity: { y: 200 },
         },
       },
 
-      parent: "game-content",
-      fps: { 
-        forceSetTimeOut: true, 
-        target: 30
+      parent: 'game-content',
+      fps: {
+        forceSetTimeOut: true,
+        target: 30,
       },
 
       scale: {
@@ -40,13 +40,13 @@ export default function Preload() {
 
       render: {
         pixelArt: false,
-      }
-    };
+      },
+    }
 
-    var game = new Phaser.Game(config)  
-    game.scene.add("main", Main);
-    game.scene.start("main");
-  };
+    var game = new Phaser.Game(config)
+    game.scene.add('main', Main)
+    game.scene.start('main')
+  }
 
-  return null;
+  return null
 }
