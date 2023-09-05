@@ -22,16 +22,18 @@ export const main = () => {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="mockup-phone border-primary mt-20">
-        <ArrowRightOnRectangleIcon
-          onClick={logout}
-          className="h-6 w-6 my-6 text-blue-500 cursor-pointer"
-        />
-        <div className="camera"></div>
-        <div className="display">
-          <div className="artboard artboard-demo phone-1">
-            <button className="btn glass" onClick={handlePageInBlackjack}>Glass button</button>
+    <div className="bg-blue-400 py-48">
+      <div className="card w-96 bg-base-100 shadow-xl mx-10">
+        <figure>
+          <img src="/assets/background.jpg" alt="backGround" />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">BlackjackGame</h2>
+          <p>Let`s Play together?</p>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary" onClick={handlePageInBlackjack}>
+              Start Now
+            </button>
           </div>
         </div>
       </div>

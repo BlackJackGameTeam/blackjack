@@ -17,8 +17,8 @@ const blackjack = () => {
     return (
       <div>
         <Head>
-          <title>Phaser Starter</title>
-          <link rel="icon" href="/favicon.ico" />
+          <title>BlackjackGame</title>
+          <link rel="icon" href="/card.ico" />
         </Head>
         <div key={Math.random()} id="game"></div>
         {loading ? <DynamicComponentWithNoSSR /> : "Loading..."}
