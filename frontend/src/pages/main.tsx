@@ -17,6 +17,10 @@ export const main = () => {
     }, 1000)
   }
 
+  const handlePageInBlackjack = () => {
+    router.push('/games/blackjack')
+  }
+
   return (
     <div className="flex justify-center">
       <div className="mockup-phone border-primary mt-20">
@@ -26,7 +30,9 @@ export const main = () => {
         />
         <div className="camera"></div>
         <div className="display">
-          <div className="artboard artboard-demo phone-1">Hi.</div>
+          <div className="artboard artboard-demo phone-1">
+            <button className="btn glass" onClick={handlePageInBlackjack}>Glass button</button>
+          </div>
         </div>
       </div>
     </div>
